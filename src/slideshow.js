@@ -2,6 +2,7 @@ var SlideShow = (function() {
   var slides = [],
       wrapper,
       current_slide = 0,
+      // To be placed in init config
       animation_phases = {
         'pause' : 4500,
         'fadeOut' : 1200,
@@ -50,6 +51,8 @@ var SlideShow = (function() {
     requestAnimationFrame(loop);
   };
 
+  // Animation is based on time instead of frames for a smoother 
+  // result less dependent on performance
   function animate(time) {
     var current_time = (new Date).getTime();
     if (start_time === undefined) {
@@ -112,28 +115,32 @@ var SlideShow = (function() {
       }
     },
 
+    // Function to build HTML elements
     _build: function() {
       var image_el,
           summary_wrapper,
           summary_el,
           caption_el;
 
+      // Slide div element
       this.node = document.createElement('div');
       this.node.className = 'slide';
 
+      // Slide img element
       image_el = document.createElement('img');
       image_el.src = this.image_url;
 
       this.node.appendChild(image_el);
 
+      // Summary div with placement and contents based on JSON
       summary_wrapper = document.createElement('div');
       summary_wrapper.className = 'summary_wrapper';
       summary_wrapper.className += ' ' + (this.label_placement == 0 ? 'top' : 'bottom');
-
       summary_el = document.createElement('p');
       summary_el.className = 'summary';
       summary_el.innerHTML = this.summary;
 
+      // Caption paragraph with contents from JSON
       caption_el = document.createElement('p');
       caption_el.className = 'caption';
       caption_el.innerHTML = this.caption;
@@ -145,6 +152,7 @@ var SlideShow = (function() {
       this.parent_node.appendChild(this.node);
     },
 
+    // Animation phases based on configuration
     fadeOut: function(time) {
       this.node.style.opacity = 1 - (time / animation_phases.fadeOut);
     },
