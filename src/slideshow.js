@@ -44,6 +44,8 @@ var SlideShow = (function() {
       slides.push(slide);
     }
     current_slide = slides[0];
+
+    return 'blah';
   }
 
   var loop = function() {
@@ -166,7 +168,7 @@ var SlideShow = (function() {
     },
 
     delay: function(time) {
-      this.node.style.opacity = 0;
+      return this.node.style.opacity = 0;
     }
   }
 
@@ -178,6 +180,10 @@ var SlideShow = (function() {
       getSlides({
         url: config.url
       });
-    }
+    },
+
+    createSlides: createSlides,
+    
+    Slide: Slide
   }
 })();
